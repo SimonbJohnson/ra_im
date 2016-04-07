@@ -1,0 +1,22 @@
+<div ng-show="pageCtrl.currentView('global')" ng-controller="globeController as globe">
+	<div class="row">
+		<div class='col-md-12'>
+			<a class="nav-link" ng-class="{ active: globe.isActive('appeals')}" ng-click="globe.setGlobalDash('appeals')" href="">Appeals</a>
+			<a class="nav-link" ng-class="{ active: globe.isActive('3w')}" ng-click="globe.setGlobalDash('3w')" href="">Who, what, where (3W)</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h1>{{globe.dash.title}}</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div id="globalmap" class="col-md-8"></div>
+		<div class="col-md-4" ng-show="globe.isActive('appeals')">
+			<p>Some info about appeals</p>
+		</div>
+		<div class="col-md-4" ng-show="globe.isActive('3w')">
+			<p>Some info about 3w</p>
+		</div>		
+	</div>
+</div>
