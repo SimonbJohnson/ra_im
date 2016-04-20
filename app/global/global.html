@@ -11,11 +11,9 @@
 		</div>
 	</div>
 	<div class="row">
-		<div id="globalmap" class="col-md-8"></div>
-		<div class="col-md-4" ng-show="globe.isActive('appeals')">
-			<p>Some info about appeals</p>
-		</div>
-		<div class="col-md-4" ng-show="globe.isActive('3w')">
+		<div id="globalmap" class="col-md-6"></div>
+		<appeals-view></appeals-view>
+		<div class="col-md-6" ng-show="globe.isActive('3w')">
 			<p>Some info about 3w</p>
 		</div>		
 	</div>

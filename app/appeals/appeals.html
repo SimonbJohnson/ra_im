@@ -1,0 +1,41 @@
+<div id="appealsinfo" class="col-md-6" ng-show="globe.isActive('appeals')" ng-controller="appealsController as appealsCtrl">
+	<div id="overview" ng-show="!appealsCtrl.showFocusAppeal()">
+		<p>Appeals Budgets by RC Region</p>
+		<div id="appealsgraph" class="margintop30"></div>
+		<p class="figsubtitle">Budget totals shown in Swiss Francs. Funding as percent of budget. <a href="">Get Data</a></p>
+	</div>
+	<div id="individual" ng-show="appealsCtrl.showFocusAppeal()">
+		<p>{{appealsCtrl.focusAppeals[0]['#meta+title']}}</p>
+		<div class="row">
+			<div id="appealPie" class="col-md-6">
+				
+			</div>			
+			<div class="col-md-6">
+				<p>Start: {{appealsCtrl.focusAppeals[0]['#date+start']}}</p>
+				<p>End: {{appealsCtrl.focusAppeals[0]['#date+end']}}</p>
+				<p>Budget: {{appealsCtrl.focusAppeals[0]['#meta+budget'] | nicenumber}} CHF</p>
+				<p>Funding: {{appealsCtrl.focusAppeals[0]['#meta+funding'] | nicenumber}} CHF</p>
+				<p>Targeted: {{appealsCtrl.focusAppeals[0]['#targeted'] | nicenumber}} People</p>
+			</div>
+		</div>
+	</div>
+	<div class="row margintop15">
+		<div class="col-md-12">
+			<p>There are currently {{appealsCtrl.numberOfAppeals}} active appeals.  <a href="">Get Data</a></p>
+		</div>
+	</div>		
+	<div class="row margintop15">
+		<div class="col-md-6">
+			<p>Latest 3 active appeals:</p>
+			<ul>
+		        <li ng-repeat="appeal in appealsCtrl.latest"><a ng-mouseover="appealsCtrl.setFocusAppealByName(appeal['#meta+title'])" ng-mouseout="appealsCtrl.clearFocusAppeal()">{{appeal['#meta+title']}} ({{appeal['#meta+budget+formatted']}})</a></li>
+		    </ul>
+		</div>
+		<div class="col-md-6">
+			<p>Largest active appeals:</p>
+			<ul>
+		        <li ng-repeat="appeal in appealsCtrl.largest"><a ng-mouseover="appealsCtrl.setFocusAppealByName(appeal['#meta+title'])" ng-mouseout="appealsCtrl.clearFocusAppeal()">{{appeal['#meta+title']}} ({{appeal['#meta+budget+formatted']}})</a></li>
+		    </ul>
+		</div>
+	</div>				
+</div>

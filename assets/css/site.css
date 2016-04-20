@@ -10,7 +10,7 @@ body {
 }
 
 p {
-    font-size:1.4em;
+    font-size:16px;
 }
 
 .rightalign {
@@ -62,14 +62,22 @@ h1 {
     padding-left:10px;
 }
 
+.margintop15 {
+    margin-top:15px;
+}
+
 .margintop30 {
     margin-top:30px;
+}
+
+.margintop45 {
+    margin-top:45px;
 }
 
 /*Style for global view*/
 
 #globalmap {
-    height:500px;
+    height:540px;
 }
 
 .leaflet-container {
@@ -87,4 +95,51 @@ h1 {
 
 .active:hover, .active:visited {
     color:#000;
+}
+
+.d3standardlight{
+    fill: #EF9A9A;
+}
+
+.d3standarddark{
+    fill: #B71C1C;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.baraxis path,
+.baraxis line {
+    stroke-width:0;
+}
+
+#appealsgraph {
+    font-size:10px;
+}
+
+.figsubtitle {
+    font-size:16px;
+    color:#666;
+}
+
+ul
+{
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    height:45px;
+}
+
+#overview {
+    height:320px;
+}
+
+#individual {
+    height:320px;
 }
