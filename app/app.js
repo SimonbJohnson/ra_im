@@ -23,6 +23,17 @@
 	    return {getData:getData};
 	});
 
+	app.factory('wwwService', function($http) {
+		var getData = function() {
+			wwwUrl = 'https://proxy.hxlstandard.org/data.json?strip-headers=on&url=https%3A//docs.google.com/spreadsheets/d/1Yq9uFEM0FKFDfhi7rlkhU2L6TmNOSky91MZSFn24F7Y/edit%23gid%3D0&force=1';
+	        return $http({method:"GET", url:wwwUrl}).then(function(result){
+	        	console.log(hxlProxyToJSON(result.data));
+	            return hxlProxyToJSON(result.data);
+	        });
+	    };
+	    return {getData:getData};
+	});
+
 	app.factory('geoService', function($http) {
 		var getWorld = function() {
 			worldUrl = 'assets/geo/worldmap_temp.json';

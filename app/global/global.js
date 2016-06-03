@@ -17,12 +17,14 @@ angular.module('ra_im').directive('globalView', function(){
 			if(dash == 'appeals'){
 				this.dash.title = 'Active Appeals overview';
 				this.dash.id = 'appeals';
+				$scope.map.removeLayer($scope.dcGeoLayer);
 				$scope.map.addLayer($scope.appealsOverlay);
 			}
-			if(dash == '3w'){
+			if(dash == 'www'){
 				this.dash.title = 'Who, what, where (3W)';
-				this.dash.id = '3w';
+				this.dash.id = 'www';
 				$scope.map.removeLayer($scope.appealsOverlay);
+				$scope.$broadcast('wwwStart');
 			}
 		}	
 
@@ -39,6 +41,15 @@ angular.module('ra_im').directive('globalView', function(){
 		        zoom: 1,
 		        layers: [baselayer]
 			});
+
+			    var info = L.control();
+
+		    info.onAdd = function (map) {
+		        div = L.DomUtil.create('div', 'hdx-3w-info');
+		            return div;
+		        };
+
+			info.addTo($scope.map);
 		};
 
 		this.init()

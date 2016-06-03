@@ -73,7 +73,7 @@ angular.module('ra_im').directive('appealsView', function(){
 				}
 			});
 			if(this.focusAppeals.length>0){this.createAppealPie(this.focusAppeals[0])}
-			$scope.$digest();
+			//$scope.$digest();
 		}
 
 		this.clearFocusAppeal = function(name){
@@ -155,11 +155,14 @@ angular.module('ra_im').directive('appealsView', function(){
     		.addTo($scope.map);
 
 			function onEachFeature(feature, layer) {
-			    layer.on('mouseover',function(f,l){
-			    	self.setFocusAppeals(f.target.feature.properties['ISO_A3']);
+			    layer.on('mouseover',function(e,l){
+			    	$('.hdx-3w-info').html(e.target.feature.properties['NAME']);
 			    });
-			    layer.on('mouseout',function(f,l){
-			    	self.focusAppeals = []
+			    layer.on('mouseout',function(e,l){
+			    	$('.hdx-3w-info').html('');
+			    });
+			    layer.on('click',function(e,l){
+			    	self.setFocusAppeals(e.target.feature.properties['ISO_A3']);
 			    	$scope.$digest();
 			    });
 			}
@@ -204,7 +207,6 @@ angular.module('ra_im').directive('appealsView', function(){
 			    .attr("height", height + margin.top + margin.bottom)
 			    .append("g")
 			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 
     		svg.append("g")
 		        .attr("class", "x axis baraxis")
