@@ -40,31 +40,40 @@ angular.module('ra_im').directive('countryView', function(){
 			this.informPromise = countryService.getInformData(self.ISO3);
 			
 			$q.all([this.countryPromise,this.NSPromise,this.branchPromise,this.appealsPromise,this.informPromise]).then(function(results){				
-				self.countryName = results[0][0]['#country+name'];
-				self.incomeGroup = results[0][0]['#indicator+income'];
-				self.population = results[0][0]['#population'];
-				self.gdp = results[0][0]['#indicator+gdp'];
-				self.hdi = results[0][0]['#indicator+hdi'];
-				self.lifeexpectancy = results[0][0]['#indicator+lifeexpectancy'];
-				self.infantMortality = results[0][0]['#indicator+infantmortality'];
-				self.NS = results[1][0]['#org'];
-				self.expenditure = results[1][0]['#indicator+expenditure'];
-				self.income = results[1][0]['#indicator+income'];
-				self.staff = results[1][0]['#indicator+staff'];
-				self.vols = results[1][0]['#indicator+volunteers'];
-				console.log(results[4][0]);
-				self.inform.risk = results[4][0]['#indicator+risk'];
-				self.inform.rank = results[4][0]['#indicator+rank'];
-				self.inform.coping = results[4][0]['#indicator+coping'];
-				self.inform.hazard = results[4][0]['#indicator+hazard'];
-				self.inform.vulnerability = results[4][0]['#indicator+vulnerability']; 
-				self.createBranchLayer(results[2]);
-				self.appeals = results[3];
-				self.appeals.forEach(function(d){
-					d['#meta+budget'] = +d['#meta+budget'];
-					d['#meta+budget+formatted'] = d3.format(".3s")(d['#meta+budget']);
-					d['#date+start+js'] = d3.time.format('%d/%m/%Y').parse(d['#date+start']);
-				});
+				if(results[0].length>0){
+					self.countryName = results[0][0]['#country+name'];
+					self.incomeGroup = results[0][0]['#indicator+income'];
+					self.population = results[0][0]['#population'];
+					self.gdp = results[0][0]['#indicator+gdp'];
+					self.hdi = results[0][0]['#indicator+hdi'];
+					self.lifeexpectancy = results[0][0]['#indicator+lifeexpectancy'];
+					self.infantMortality = results[0][0]['#indicator+infantmortality'];
+				}
+				if(results[1].length>0){
+					self.NS = results[1][0]['#org'];
+					self.expenditure = results[1][0]['#indicator+expenditure'];
+					self.income = results[1][0]['#indicator+income'];
+					self.staff = results[1][0]['#indicator+staff'];
+					self.vols = results[1][0]['#indicator+volunteers'];
+				}
+				if(results[4].length>0){
+					self.inform.risk = results[4][0]['#indicator+risk'];
+					self.inform.rank = results[4][0]['#indicator+rank'];
+					self.inform.coping = results[4][0]['#indicator+coping'];
+					self.inform.hazard = results[4][0]['#indicator+hazard'];
+					self.inform.vulnerability = results[4][0]['#indicator+vulnerability'];
+				} 
+				if(results[2]>0){
+					self.createBranchLayer(results[2]);
+				}
+				if(results[3]>0){
+					self.appeals = results[3];
+					self.appeals.forEach(function(d){
+						d['#meta+budget'] = +d['#meta+budget'];
+						d['#meta+budget+formatted'] = d3.format(".3s")(d['#meta+budget']);
+						d['#date+start+js'] = d3.time.format('%d/%m/%Y').parse(d['#date+start']);
+					});
+				}
 				$rootScope.$broadcast('endloading');
 			});
 		});
