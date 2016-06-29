@@ -21,6 +21,7 @@
         <script type="text/javascript" src="assets/js/crossfilter.v1.min.js"></script>
         <script type="text/javascript" src="assets/js/dc.min.js"></script>
         <script type="text/javascript" src="assets/js/dc.leaflet.js"></script>
+        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 
         <!-- Google Analytics Script -->
         <script type="text/javascript">
@@ -36,12 +37,22 @@
         </script>             
     </head>
     <body class="container" ng-controller="pageController as pageCtrl">
+        <p class="small">Prototyping RC overview dashboard running off <a href="http://hxlstandard.org/" target="_blank">HXL</a> backend. <a href="https://twitter.com/Simon_B_Johnson" target="_blank">@simon_b_johnson</a></p>
         <global-view></global-view>
         <country-view></country-view>
+        <div class="modal fade in" aria-hidden="false" id="loading">  
+            <div class="modal-dialog">    
+                <div class="modal-content">   
+                    <h1>Loading</h1> 
+                </div>  
+            </div>
+        </div>
         <script type="text/javascript" src="app/app.js"></script>
         <script type="text/javascript" src="app/filters.js"></script>
         <script type="text/javascript" src="app/global/global.js"></script>
         <script type="text/javascript" src="app/appeals/appeals.js"></script>
         <script type="text/javascript" src="app/www/www.js"></script>
+        <script type="text/javascript" src="app/branches/branches.js"></script>
+        <script type="text/javascript" src="app/country/country.js"></script>
     </body>
 </html>

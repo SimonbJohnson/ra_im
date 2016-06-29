@@ -1,0 +1,11 @@
+<div id="branchesinfo" class="col-md-6" ng-show="globe.isActive('branches')" ng-controller="branchesController as branchesCtrl">
+	<p>Crowd sourced Red Cross branches</p>
+	<p><a href="https://docs.google.com/spreadsheets/d/1UMiFwFMijHlsRP_OM5zKNl6FFH5BXQ91qzcD8YnU4Ao/edit#gid=396841826" target="_blank">Get or Add Data</a></p>
+	<div id="branchdata" ng-show="branchesCtrl.branchFocus">
+		<h3><a href="" ng-click="pageCtrl.setCountry(branchesCtrl.branchData['countrycode'])">{{branchesCtrl.branchData['ns']}}</a></h3>
+		<p>{{branchesCtrl.branchData['city']}}, <a href="" ng-click="pageCtrl.setCountry(branchesCtrl.branchData['countrycode'])">{{branchesCtrl.branchData['country']}}</a></p>
+		<p>Branch Type:{{branchesCtrl.branchData['branchtype']}}</p>
+		<p>Address:{{branchesCtrl.branchData['address']}}</p>
+		<p>Telephone:{{branchesCtrl.branchData['telephone']}}</p>
+	</div>
+</div>

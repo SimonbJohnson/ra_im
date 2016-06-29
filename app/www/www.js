@@ -8,6 +8,7 @@ angular.module('ra_im').directive('wwwView', function(){
 
 		var self = this;
 
+		$scope.$parent.dcGeoOverlay = 'empty';
 		this.wwwPromise = wwwService.getData();
 		this.worldGeoPromise = geoService.getWorld();
 
@@ -25,7 +26,6 @@ angular.module('ra_im').directive('wwwView', function(){
 			$('.hdx-3w-info').remove();
 
 			var cf = crossfilter(data);
-			console.log(data);
 			cf.whereDim = cf.dimension(function(d){return d['#country+code']});
 			cf.whoDim = cf.dimension(function(d){return d['#org']});
 			cf.whatDim = cf.dimension(function(d){return d['#sector']});

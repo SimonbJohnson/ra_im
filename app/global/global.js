@@ -4,7 +4,7 @@ angular.module('ra_im').directive('globalView', function(){
 			templateUrl: 'app/global/global.html',
 		};
 	})
-	.controller('globeController',['$http','$q','$scope','appealsService','geoService',function($http,$q,$scope,appealsService,geoService){
+	.controller('globeController',['$http','$q','$scope','$rootScope','appealsService','geoService',function($http,$q,$scope,$rootScope,appealsService,geoService){
 
 		var self = this;
 		this.map = {};
@@ -17,14 +17,28 @@ angular.module('ra_im').directive('globalView', function(){
 			if(dash == 'appeals'){
 				this.dash.title = 'Active Appeals overview';
 				this.dash.id = 'appeals';
-				$scope.map.removeLayer($scope.dcGeoLayer);
+				if($scope.map.hasLayer($scope.dcGeoLayer)){$scope.map.removeLayer($scope.dcGeoLayer);}
+				if($scope.map.hasLayer($scope.branchesOverlay)){$scope.map.removeLayer($scope.branchesOverlay)};
 				$scope.map.addLayer($scope.appealsOverlay);
 			}
 			if(dash == 'www'){
 				this.dash.title = 'Who, what, where (3W)';
 				this.dash.id = 'www';
-				$scope.map.removeLayer($scope.appealsOverlay);
+				if($scope.map.hasLayer($scope.appealsOverlay)){$scope.map.removeLayer($scope.appealsOverlay);}
+				if($scope.map.hasLayer($scope.branchesOverlay)){$scope.map.removeLayer($scope.branchesOverlay);}
 				$scope.$broadcast('wwwStart');
+			}
+			if(dash == 'branches'){
+				this.dash.title = 'RC Branches';
+				this.dash.id = 'branches';
+				if($scope.map.hasLayer($scope.appealsOverlay)){$scope.map.removeLayer($scope.appealsOverlay);}
+				if($scope.map.hasLayer($scope.dcGeoLayer)){$scope.map.removeLayer($scope.dcGeoLayer);}
+				if($scope.branchesOverlay!='empty'){
+					$scope.map.addLayer($scope.branchesOverlay);
+				} else {
+					$rootScope.$broadcast('startloading');
+				}
+				$scope.$broadcast('branchesStart');
 			}
 		}	
 
