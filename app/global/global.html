@@ -3,6 +3,7 @@
 		<div class='col-md-12'>
 			<a class="nav-link" ng-class="{ active: globe.isActive('appeals')}" ng-click="globe.setGlobalDash('appeals')" href="">Appeals</a>
 			<a class="nav-link" ng-class="{ active: globe.isActive('www')}" ng-click="globe.setGlobalDash('www')" href="">Who, what, where (3W)</a>
+			<a class="nav-link" ng-class="{ active: globe.isActive('branches')}" ng-click="globe.setGlobalDash('branches')" href="">Branches</a>
 		</div>
 	</div>
 	<div class="row">
@@ -13,6 +14,7 @@
 	<div class="row">
 		<div id="globalmap" class="col-md-6"></div>
 		<appeals-view></appeals-view>
-		<www-view></www-view>		
+		<www-view></www-view>
+		<branches-view></branches-view>		
 	</div>
 </div>

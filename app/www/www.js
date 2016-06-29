@@ -8,6 +8,7 @@ angular.module('ra_im').directive('wwwView', function(){
 
 		var self = this;
 
+		$scope.$parent.dcGeoOverlay = 'empty';
 		this.wwwPromise = wwwService.getData();
 		this.worldGeoPromise = geoService.getWorld();
 
@@ -25,7 +26,6 @@ angular.module('ra_im').directive('wwwView', function(){
 			$('.hdx-3w-info').remove();
 
 			var cf = crossfilter(data);
-			console.log(data);
 			cf.whereDim = cf.dimension(function(d){return d['#country+code']});
 			cf.whoDim = cf.dimension(function(d){return d['#org']});
 			cf.whatDim = cf.dimension(function(d){return d['#sector']});
@@ -38,7 +38,7 @@ angular.module('ra_im').directive('wwwView', function(){
 			cf.whatChart = dc.rowChart('#whatchart');
 			cf.whereChart = dc.leafletChoroplethChart('#test');
 
-			cf.whoChart.width($('#globalmap').width()/2).height(550)
+			cf.whoChart.width($('#globalmap').width()/2).height(510)
 	            .dimension(cf.whoDim)
 	            .group(cf.whoGroup)
 	            .elasticX(true)
@@ -48,7 +48,7 @@ angular.module('ra_im').directive('wwwView', function(){
 	            .ordering(function(d){ return -d.value })
 	            .xAxis().ticks(5);
 
-			cf.whatChart.width($('#globalmap').width()/2).height(550)
+			cf.whatChart.width($('#globalmap').width()/2).height(510)
 	            .dimension(cf.whatDim)
 	            .group(cf.whatGroup)
 	            .elasticX(true)

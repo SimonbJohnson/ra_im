@@ -1,3 +1,46 @@
-<div class="row" ng-show="pageCtrl.currentView('country')">
-	<h1>{{country.name}}</h1>
+<div class="row" ng-show="pageCtrl.currentView('country')" ng-controller="countryController as countryCtrl">
+	<div class="col-md-12"><a href="" ng-click="pageCtrl.setView('global')">< Back</a></div>
+	<div class="col-md-6">
+		<h1>{{countryCtrl.NS}}</h1>
+		<table class="smalltable">
+			<tr><td>Expenditure (CHF)</td><td class="stat"><a href="https://docs.google.com/spreadsheets/d/1tke3ftPg2QP7HmM36OmJetW8g4Wt0iDH_HcUIvepFZA/edit?usp=sharing" target="_blank">{{countryCtrl.expenditure | nicenumber}}</a></td><td>Income (CHF)</td><td class="stat"><a href="https://docs.google.com/spreadsheets/d/1tke3ftPg2QP7HmM36OmJetW8g4Wt0iDH_HcUIvepFZA/edit?usp=sharing" target="_blank">{{countryCtrl.income | nicenumber}}</a></td></tr>
+			<tr><td>Staff</td><td class="stat"><a href="https://docs.google.com/spreadsheets/d/1tke3ftPg2QP7HmM36OmJetW8g4Wt0iDH_HcUIvepFZA/edit?usp=sharing" target="_blank">{{countryCtrl.staff | nicenumber}}</a></td><td>Volunteers</td><td class="stat"><a href="https://docs.google.com/spreadsheets/d/1tke3ftPg2QP7HmM36OmJetW8g4Wt0iDH_HcUIvepFZA/edit?usp=sharing" target="_blank">{{countryCtrl.vols | nicenumber}}</a></td></tr>
+		</table>
+		<h3>{{countryCtrl.countryName}}</h3>
+		<table class="smalltable">
+			<tr><td>Population</td><td class="stat"><a href="https://docs.google.com/spreadsheets/d/1kyxNHb1w_X1CapmuLWxX5g-65_2KaQmk5rxgSkCAtsw/edit?usp=sharing" target="_blank">{{countryCtrl.population | nicenumber}}</a></td><td>GDP per Capita ($)</td><td class="stat"><a href="https://docs.google.com/spreadsheets/d/1kyxNHb1w_X1CapmuLWxX5g-65_2KaQmk5rxgSkCAtsw/edit?usp=sharing" target="_blank">{{countryCtrl.gdp | nicenumber}}</a></td></tr>
+			<tr><td>Income Group</td><td class="stat"><a href="https://docs.google.com/spreadsheets/d/1kyxNHb1w_X1CapmuLWxX5g-65_2KaQmk5rxgSkCAtsw/edit?usp=sharing" target="_blank">{{countryCtrl.incomeGroup}}</a></td><td>Human Development Index</td><td class="stat"><a href="https://docs.google.com/spreadsheets/d/1kyxNHb1w_X1CapmuLWxX5g-65_2KaQmk5rxgSkCAtsw/edit?usp=sharing" target="_blank">{{countryCtrl.hdi | nicenumber}}</a></td></tr>
+			<tr><td>Life Expectancy</td><td class="stat"><a href="https://docs.google.com/spreadsheets/d/1kyxNHb1w_X1CapmuLWxX5g-65_2KaQmk5rxgSkCAtsw/edit?usp=sharing" target="_blank">{{countryCtrl.lifeexpectancy}}</a></td><td>Infant Mortality</td><td class="stat"><a href="https://docs.google.com/spreadsheets/d/1kyxNHb1w_X1CapmuLWxX5g-65_2KaQmk5rxgSkCAtsw/edit?usp=sharing" target="_blank">{{countryCtrl.infantMortality | nicenumber}}</a></td></tr>
+		</table>
+		<div ng-show="countryCtrl.appeals.length>0">
+			<h3>Appeals active at country level</h3>
+			<ul>
+		    	<li ng-repeat="appeal in countryCtrl.appeals">{{appeal['#meta+title']}} ({{appeal['#meta+budget+formatted']}})</li>
+			</ul>
+		</div>
+		<h3>Inform Index</h3>
+		<table class="smalltable">
+			<tr>
+				<td>Risk</td>
+				<td class="stat"><a href="https://docs.google.com/spreadsheets/d/1Wac8ml3B-ybPZLvtpqhxF9tLN7WBVaQGCP5njgKgVPc/edit?usp=sharing" target="_blank">{{countryCtrl.inform.risk}}/10</a></td>
+				<td>Rank</td>
+				<td class="stat"><a href="https://docs.google.com/spreadsheets/d/1Wac8ml3B-ybPZLvtpqhxF9tLN7WBVaQGCP5njgKgVPc/edit?usp=sharing" target="_blank">{{countryCtrl.inform.rank}}</a></td></tr>
+			<tr>
+				<td>Hazard</td>
+				<td class="stat"><a href="https://docs.google.com/spreadsheets/d/1Wac8ml3B-ybPZLvtpqhxF9tLN7WBVaQGCP5njgKgVPc/edit?usp=sharing" target="_blank">{{countryCtrl.inform.hazard}}/10</a></td>
+				<td>Vulnerability</td>
+				<td class="stat"><a href="https://docs.google.com/spreadsheets/d/1Wac8ml3B-ybPZLvtpqhxF9tLN7WBVaQGCP5njgKgVPc/edit?usp=sharing" target="_blank">{{countryCtrl.inform.vulnerability}}/10</a></td>
+			</tr>
+			<tr>
+				<td>Lack of Coping</td>
+				<td class="stat"><a href="https://docs.google.com/spreadsheets/d/1Wac8ml3B-ybPZLvtpqhxF9tLN7WBVaQGCP5njgKgVPc/edit?usp=sharing" target="_blank">{{countryCtrl.inform.coping}}/10</a></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>		
+	</div>
+	<div class="col-md-6">
+		<div><p>RC Branches. Download <a href="https://proxy.hxlstandard.org/data.csv?filter01=cut&select-query02-01=country%2Bcode%3D{{countryCtrl.ISO3}}&strip-headers=on&url=https%3A//docs.google.com/spreadsheets/d/1UMiFwFMijHlsRP_OM5zKNl6FFH5BXQ91qzcD8YnU4Ao/pub%3Fgid%3D396841826%26single%3Dtrue%26output%3Dcsv&filter02=select&cut-include-tags01=country%2Cloc%2Bbranch%2Btype%2Cloc%2Bbranch%2Btype%2Bcode%2Corg-telephone-fax-email-website%2Cloc%2Bcity%2Cgeo%2Blat%2Cgeo%2Blon%2C%23loc%2Bbranch%2Baddress%2C%23org%2Btelephone" target="_blank">data</a>. Amend <a href="https://docs.google.com/spreadsheets/d/1UMiFwFMijHlsRP_OM5zKNl6FFH5BXQ91qzcD8YnU4Ao/edit#gid=396841826" target="_blank">data</a></p></div>
+		<div id="countrymap"></div> 
+	</div>
 </div>

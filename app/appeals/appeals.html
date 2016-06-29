@@ -5,7 +5,7 @@
 		<p class="figsubtitle">Budget totals shown in Swiss Francs. Funding as percent of budget. <a href="">Get Data</a></p>
 	</div>
 	<div id="individual" ng-show="appealsCtrl.showFocusAppeal()">
-		<p>{{appealsCtrl.focusAppeals[0]['#meta+title']}}</p>
+		<p><a class="nav-link" ng-click="pageCtrl.setCountry(appealsCtrl.focusAppeals[0]['#country+code'])" href="">{{appealsCtrl.focusAppeals[0]['#meta+title']}}</a></p>
 		<div class="row">
 			<div id="appealPie" class="col-md-6">
 				
@@ -21,20 +21,20 @@
 	</div>
 	<div class="row margintop15">
 		<div class="col-md-12">
-			<p>There are currently {{appealsCtrl.numberOfAppeals}} active appeals.  <a href="">Get Data</a></p>
+			<p>There are currently {{appealsCtrl.numberOfAppeals}} active appeals.  <a href="https://docs.google.com/spreadsheets/d/1rVAE8b3uC_XIqU-eapUGLU7orIzYSUmvlPm9tI0bCbU/edit?usp=sharing" target="_blank">Get Data</a></p>
 		</div>
 	</div>		
 	<div class="row margintop15">
 		<div class="col-md-6">
 			<p>Latest 3 active appeals:</p>
 			<ul>
-		        <li ng-repeat="appeal in appealsCtrl.latest"><a ng-mouseover="appealsCtrl.setFocusAppealByName(appeal['#meta+title'])" ng-mouseout="appealsCtrl.clearFocusAppeal()">{{appeal['#meta+title']}} ({{appeal['#meta+budget+formatted']}})</a></li>
+		        <li class="pointer" ng-repeat="appeal in appealsCtrl.latest"><a ng-click="appealsCtrl.setFocusCountry(appeal['#country+code'])">{{appeal['#meta+title']}} ({{appeal['#meta+budget+formatted']}})</a></li>
 		    </ul>
 		</div>
 		<div class="col-md-6">
 			<p>Largest active appeals:</p>
 			<ul>
-		        <li ng-repeat="appeal in appealsCtrl.largest"><a ng-mouseover="appealsCtrl.setFocusAppealByName(appeal['#meta+title'])" ng-mouseout="appealsCtrl.clearFocusAppeal()">{{appeal['#meta+title']}} ({{appeal['#meta+budget+formatted']}})</a></li>
+		        <li class="pointer" ng-repeat="appeal in appealsCtrl.largest"><a ng-click="appealsCtrl.setFocusCountry(appeal['#country+code'])" >{{appeal['#meta+title']}} ({{appeal['#meta+budget+formatted']}})</a></li>
 		    </ul>
 		</div>
 	</div>				

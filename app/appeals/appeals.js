@@ -4,7 +4,7 @@ angular.module('ra_im').directive('appealsView', function(){
 			templateUrl: 'app/appeals/appeals.html',
 		};
 	})
-	.controller('appealsController',['$http','$q','$scope','appealsService','geoService',function($http,$q,$scope,appealsService,geoService){
+	.controller('appealsController',['$http','$q','$scope','$rootScope','appealsService','geoService',function($http,$q,$scope,$rootScope,appealsService,geoService){
 
 		var self = this;
 
@@ -12,6 +12,7 @@ angular.module('ra_im').directive('appealsView', function(){
 
 		this.appeals = [];
 		this.focusAppeals = [];
+		this.focusCountry = '';
 
 		this.largest = [];
 		this.latest = [];
@@ -39,6 +40,7 @@ angular.module('ra_im').directive('appealsView', function(){
 		$q.all([this.appealsPromise,this.worldGeoPromise]).then(function(results){
 			self.createAppealsMap(results[0],results[1]);
 			self.createAppealsGraph(results[0]);
+			$rootScope.$broadcast('endloading');
 		});			
 
 		/*this.setGlobalDash = function(dash){
@@ -54,6 +56,19 @@ angular.module('ra_im').directive('appealsView', function(){
 			}
 		}*/
 
+		this.setFocusCountry = function(iso3){
+			d3.selectAll('.appealcountry').attr('fill','#aaaaaa').attr('stroke','#aaaaaa');
+			if(self.focusCountry != iso3){
+				self.setFocusAppeals(iso3);
+				self.focusCountry = iso3;
+				d3.selectAll('.appeal'+iso3).attr('fill','#B71C1C').attr('stroke','#B71C1C');
+			} else {
+				self.setFocusAppeals('NA');
+				self.focusCountry = 'NA';
+				d3.selectAll('.appealcountry').attr('fill','#B71C1C').attr('stroke','#B71C1C');				    	
+			}
+		}
+
 		this.setFocusAppeals = function(iso3){
 			this.focusAppeals = [];
 			this.appeals.forEach(function(d){
@@ -62,10 +77,10 @@ angular.module('ra_im').directive('appealsView', function(){
 				}
 			});
 			if(this.focusAppeals.length>0){this.createAppealPie(this.focusAppeals[0])}
-			$scope.$digest();
+			//$scope.$digest();
 		}
 
-		this.setFocusAppealByName = function(name){
+		/*this.setFocusAppealByName = function(name){
 			this.focusAppeals = [];
 			this.appeals.forEach(function(d){
 				if(d['#meta+title']==name){
@@ -73,8 +88,7 @@ angular.module('ra_im').directive('appealsView', function(){
 				}
 			});
 			if(this.focusAppeals.length>0){this.createAppealPie(this.focusAppeals[0])}
-			//$scope.$digest();
-		}
+		}*/
 
 		this.clearFocusAppeal = function(name){
 			this.focusAppeals = [];
@@ -131,12 +145,14 @@ angular.module('ra_im').directive('appealsView', function(){
 		this.createAppealsMap = function(data,geo){
 
 			var style = function(feature) {
-				var color = '#dddddd';
+				var color = '#aaaaaa';
 				var fillOpacity = 0;
+				var cls = 'country'
 
 				if(data.map(function(e) { return e['#country+code']; }).indexOf(feature.properties['ISO_A3'])>-1){
 					color = '#B71C1C';
 					fillOpacity = 0.7;
+					cls = 'appealcountry country appeal'+feature.properties['ISO_A3']
 				};
 
             	return {
@@ -144,7 +160,8 @@ angular.module('ra_im').directive('appealsView', function(){
                         'fillcolor': color,
                         'weight': 1,
                         'opacity': 0.7,
-                        'fillOpacity':fillOpacity
+                        'fillOpacity':fillOpacity,
+                        'className':cls
                     };
     		}    
 
@@ -162,7 +179,19 @@ angular.module('ra_im').directive('appealsView', function(){
 			    	$('.hdx-3w-info').html('');
 			    });
 			    layer.on('click',function(e,l){
-			    	self.setFocusAppeals(e.target.feature.properties['ISO_A3']);
+			    	d3.selectAll('.appealcountry').attr('fill','#aaaaaa').attr('stroke','#aaaaaa');
+			    	if(self.focusCountry != e.target.feature.properties['ISO_A3']){
+				    	self.setFocusAppeals(e.target.feature.properties['ISO_A3']);
+				    	self.focusCountry = e.target.feature.properties['ISO_A3'];
+				    	e.target.setStyle({
+				    		'fill':'#B71C1C',
+				    		'stroke':'#B71C1C'
+					    });
+				    } else {
+				    	self.setFocusAppeals('NA');
+				    	self.focusCountry = 'NA';
+				    	d3.selectAll('.appealcountry').attr('fill','#B71C1C').attr('stroke','#B71C1C');				    	
+				    }
 			    	$scope.$digest();
 			    });
 			}

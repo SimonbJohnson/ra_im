@@ -13,6 +13,12 @@ p {
     font-size:16px;
 }
 
+.small {
+    font-size:10px;
+    color:#555;
+    margin-bottom:15px;
+}
+
 .rightalign {
     text-align:right;
 }
@@ -72,6 +78,10 @@ h1 {
 
 .margintop45 {
     margin-top:45px;
+}
+
+.pointer {
+    cursor:pointer;
 }
 
 /*Style for global view*/
@@ -159,3 +169,29 @@ li {
     color:#7F1416;
     font-size:2em;
  }
+
+ /* modal */
+
+ .modal-content {
+    text-align:center;
+    margin-top:50px;
+    margin-bottom:50px;
+ }
+
+ .smalltable {
+    width:100%;
+ }
+
+ .smalltable td {
+    padding-right:20px;
+ }
+
+ .stat{
+    text-align:right;
+ }
+
+ /* country */
+
+ #countrymap {
+    height:540px;
+}
