@@ -63,10 +63,10 @@ angular.module('ra_im').directive('countryView', function(){
 					self.inform.hazard = results[4][0]['#indicator+hazard'];
 					self.inform.vulnerability = results[4][0]['#indicator+vulnerability'];
 				} 
-				if(results[2]>0){
+				if(results[2].length>0){
 					self.createBranchLayer(results[2]);
 				}
-				if(results[3]>0){
+				if(results[3].length>0){
 					self.appeals = results[3];
 					self.appeals.forEach(function(d){
 						d['#meta+budget'] = +d['#meta+budget'];
@@ -85,10 +85,10 @@ angular.module('ra_im').directive('countryView', function(){
 		    data.forEach(function(d){
 		    	if(!isNaN(d['#geo+lat']) && d['#geo+lat']!='' && !isNaN(d['#geo+lon']) && d['#geo+lon']!=''){
 		    		if(d['#loc+branch+code+type'] == '1'){
-		    			radius = 5;
+		    			radius = 6;
 		    			opacity = 0.8;
 		    		} else {
-		    			radius = 3
+		    			radius = 4
 		    			opacity = 0.6;
 		    		}
 
@@ -101,18 +101,12 @@ angular.module('ra_im').directive('countryView', function(){
 			            fillOpacity: opacity,
 			        });
 
-			        /*marker.on('click',function(){
-			        	self.branchData = {
-			        		'ns':d['#org'],
-			        		'city':d['#loc+city'],
-			        		'country':d['#country+name'],
-			        		'branchtype':d['#loc+branch+type'],
-			        		'address':d['#loc+address+branch'],
-			        		'telephone':d['org+telephone']
-			        	};
-			        	self.branchFocus = true;
-			        	$scope.$digest();
-			        });*/
+			        var popup = '<p>Location: '+d['#loc+city']+'</p>'+
+			        		'<p>Branch type: '+d['#loc+branch+type']+'</p>'+
+			        		'<p>Address: '+d['#loc+address+branch']+'</p>'+
+			        		'<p>Telephone: '+d['#org+telephone']+'</p>';
+
+			       	marker.bindPopup(popup);
 
 			        markers.push(marker);
 			    }
